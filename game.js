@@ -1,11 +1,15 @@
 const canvas = document.querySelector('#game');
 const game = canvas.getContext('2d');
 
-window.addEventListener('load', startGame);
+let canvasSize;
+let elementsSize;
 
-function startGame() {
-    let canvasSize;
+// iniciamos el juego
+window.addEventListener('load', setCanvasSize);
+// aplicamos responsive design al canvas cada vez que cambiamos el tamaño de la ventana
+window.addEventListener('resize', setCanvasSize);
 
+function setCanvasSize() {
     if (window.innerHeight > window.innerWidth) {
         canvasSize = window.innerWidth * 0.8;
     } else {
@@ -15,7 +19,12 @@ function startGame() {
     canvas.setAttribute('width', canvasSize);
     canvas.setAttribute('height', canvasSize);
 
-    const elementsSize = canvasSize / 10;
+    elementsSize = canvasSize / 10;
+
+    startGame();
+}
+
+function startGame() {
 
     console.log({canvasSize, elementsSize});
 
@@ -25,16 +34,4 @@ function startGame() {
     for (let i = 1; i <= 10; i++) {
         game.fillText(emojis['X'], elementsSize, elementsSize * i );
     }
-
-
-
-    
-
-    //game.fillRect(0,50,100,100);
-    //game.clearRect(0,50,50,50);
-    
-    //game.font = '25px Verdana';
-    //game.fillStyle = 'green';
-    //game.textAlign = 'start';
-    //game.fillText('asojdn', 15 , 25);
 }
