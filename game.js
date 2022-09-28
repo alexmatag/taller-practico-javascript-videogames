@@ -8,6 +8,11 @@ const btnDown = document.querySelector('#down');
 let canvasSize;
 let elementsSize;
 
+const playerPosition = {
+    x: undefined,
+    y: undefined,
+};
+
 // iniciamos el juego
 window.addEventListener('load', setCanvasSize);
 // aplicamos responsive design al canvas cada vez que cambiamos el tamaño de la ventana
@@ -50,6 +55,13 @@ function startGame() {
             const emoji =  emojis[col];
             const posX = elementsSize * (colI + 1);
             const posY = elementsSize * (rowI + 1);
+
+            if (col == 'O') {
+                playerPosition.x = posX;
+                playerPosition.y = posY;
+                console.log({playerPosition});
+            }
+
             game.fillText(emoji, posX, posY);
             //console.log({row, rowI, col, colI});
         });
@@ -60,6 +72,12 @@ function startGame() {
     //         game.fillText(emojis[mapRowCols[row - 1][col - 1]], elementsSize * col, elementsSize * row );
     //     }
     // }
+
+    movePlayer();
+}
+
+function movePlayer() {
+    game.fillText(emojis['PLAYER'], playerPosition.x, playerPosition.y);
 }
 
 window.addEventListener('keydown', moveByKeys);
@@ -77,6 +95,8 @@ function moveByKeys(event) {
 
 function moveUp() {
     console.log('Arriba');
+    playerPosition.y -= elementsSize;
+    movePlayer();
 }
 
 function moveLeft() {
