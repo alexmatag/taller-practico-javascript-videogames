@@ -8,6 +8,7 @@ const btnDown = document.querySelector('#down');
 let canvasSize;
 let elementsSize;
 let level = 0;
+let lives = 3;
 
 const playerPosition = {
     x: undefined,
@@ -120,7 +121,7 @@ function movePlayer() {
         return enemyCollisionX && enemyCollisionY;
     });
     if (enemyCollision) {
-        console.log('Chocastes');
+        levelFail();
     }
 
     game.fillText(emojis['PLAYER'], playerPosition.x, playerPosition.y);
@@ -131,6 +132,22 @@ function levelWin() {
     level++;
     startGame();
 }
+
+function levelFail() {
+    console.log('chocaste con un enemigo');
+    lives--;
+    console.log(lives);
+
+    if (lives <= 0) {
+        level = 0;
+        lives = 3;
+    } 
+
+    playerPosition.x = undefined;
+    playerPosition.y = undefined;
+    startGame();
+}
+
 function gameWin() {
     console.log('Terminastes el juego');
 }
